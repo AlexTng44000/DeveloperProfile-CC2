@@ -1,70 +1,73 @@
-
-# DeveloperProfile - Jetpack Compose
+# DeveloperProfile CC2 — Profil développeur avec Jetpack Compose
 
 ## Présentation
 
-Application Android développée en Kotlin avec Jetpack Compose.
-Elle affiche une fiche de profil développeur avec un nom,
-un rôle professionnel, une description, des compétences
-et une disponibilité.
+Application Android réalisée en Kotlin avec Jetpack Compose pour le devoir CC2 « Amélioration UI du Profil développeur ».
 
-Une zone cliquable permet de représenter une action de contact.
+Elle présente le profil fictif d'Alex TANGUY, développeur Android junior : rôle, présentation, compétences, projets et coordonnées. Les données sont définies localement dans le code Kotlin ; aucune API ni base de données n'est utilisée.
 
-## Notions utilisées
+## Fonctionnalités
 
-- Fonctions @Composable
-- Paramètres et composants réutilisables
-- Modifier et chaînage de modifiers
-- Padding externe et interne
-- Column, Text et Surface
-- Callback onClick
-- Accessibilité : Role.Button et contentDescription
-- Previews
+- Carte d'en-tête avec avatar et informations de profil.
+- Liste horizontale défilante des compétences.
+- Liste verticale défilante de projets avec description et technologies.
+- Carte de contact avec disponibilité et adresse e-mail en lecture seule.
+- Bouton « Contacter le développeur » : callback présent, sans action externe pour ce devoir.
+- Affichage en thème clair et en thème sombre.
+- Deux previews Compose pour visualiser les rendus.
 
-## Réponses aux questions
+## Composants Compose utilisés
 
-### 1. Quels composables avez-vous créés ?
+- `Text` pour les titres et les descriptions.
+- `Image` et `Icon` pour l'avatar et les informations visuelles.
+- `Card` et `Surface` pour regrouper les informations.
+- `OutlinedTextField` en lecture seule pour l'adresse e-mail.
+- `Button` pour l'action de contact.
+- `@Composable`, paramètres, `Modifier` et callback `onClick` pour construire des composants réutilisables.
 
-J'ai créé ProfileScreen, ProfileHeader, SkillItem,
-ContactInfo et ProfileAction.
+Composants réutilisables : `ProfileHeader`, `SkillCard`, `ProjectCard`, `ContactInfo` et `ProfileAction`.
 
-### 2. Quel composable représente l'écran principal ?
+## Layouts et listes
 
-ProfileScreen représente l'écran principal.
-Il regroupe les différents éléments du profil.
+- `Column` : organisation verticale à l'intérieur des cartes.
+- `Row` : avatar et texte côte à côte, ou icône et information.
+- `Box` : superposition du badge sur l'avatar.
+- `Spacer` : espaces entre les éléments.
+- `LazyRow` : liste de compétences défilante horizontalement, avec une `SkillCard` pour chaque compétence.
+- `LazyColumn` : écran principal défilant verticalement, avec une `ProjectCard` pour chaque projet.
 
-### 3. Où utilisez-vous un padding externe ?
+L'utilisation de `LazyColumn` permet d'afficher les différentes sections sur un petit écran sans couper le contenu. `LazyRow` permet d'accéder aux compétences qui dépassent la largeur disponible.
 
-Dans ProfileScreen, le padding de 24.dp permet
-d'espacer le contenu par rapport aux bords de l'écran.
+## Thème Material Design 3
 
-### 4. Où utilisez-vous un padding interne ?
+L'application utilise `MaterialTheme.colorScheme` pour les couleurs, `MaterialTheme.typography` pour la hiérarchie des textes et `MaterialTheme.shapes` pour les coins arrondis. Deux palettes sont prévues : un fond clair avec des accents bleus et un fond sombre avec des surfaces foncées et des accents bleus plus clairs. Le thème affiché sur l'application suit le réglage du système.
 
-Dans ProfileHeader, le padding de 16.dp permet
-d'espacer les textes à l'intérieur du composant Surface.
+## Captures d'écran
 
-### 5. Quel composant reçoit un callback ?
+### Mode clair
 
-ProfileAction reçoit un callback onClick.
-Ce callback est appelé lors du clic sur la zone de contact.
+![Profil développeur en mode clair](screenshots/profil-clair.png)
 
-### 6. Quelle information d'accessibilité avez-vous ajoutée ?
+### Mode sombre
 
-J'ai utilisé Role.Button pour identifier la zone cliquable
-comme un bouton et contentDescription pour décrire son action.
+![Profil développeur en mode sombre](screenshots/profil-sombre.png)
 
-### 7. Pourquoi vos composants sont-ils réutilisables ?
-
-Les composables reçoivent des paramètres comme le nom,
-le rôle ou les compétences. Ils peuvent donc afficher
-plusieurs profils sans modifier leur structure.
+> Ajouter ces deux fichiers PNG dans le dossier `screenshots/` avant le rendu.
 
 ## Previews
 
-Deux previews sont disponibles :
-- Alex TANGUY : développeur Android junior.
-- Camille Durand : développeuse Android confirmée.
+Le fichier `MainActivity.kt` contient deux previews :
 
-## Capture d'écran
+- `ProfilePreview` : profil Alex TANGUY en mode clair.
+- `SecondProfilePreview` : profil Camille Durand en mode sombre.
 
-![Capture de l'application](profil.png)
+## Lancement
+
+1. Ouvrir le dossier du projet dans Android Studio.
+2. Synchroniser Gradle.
+3. Sélectionner un émulateur Android.
+4. Exécuter la configuration `app` avec **Run**.
+
+## Quelles notions du chapitre Compose UI ont été réutilisées ?
+
+J'ai réutilisé les composables de base (`Text`, `Image`, `Icon`, `Button`, `Card`, `OutlinedTextField`), les layouts (`Column`, `Row`, `Box`, `Spacer`), les listes `LazyColumn` et `LazyRow`, ainsi que les paramètres, les callbacks et les modifiers. J'ai également utilisé Material Design 3 pour les couleurs, la typographie, les formes et les aperçus clair et sombre.
