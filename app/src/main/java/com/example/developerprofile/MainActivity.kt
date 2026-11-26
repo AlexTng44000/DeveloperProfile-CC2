@@ -37,6 +37,13 @@ import androidx.compose.material3.Card
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
+
+data class ProjectUi(
+    val title: String,
+    val description: String,
+    val technology: String
+)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +64,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun ProfileScreen(
     name: String,
@@ -64,59 +72,95 @@ fun ProfileScreen(
     description: String,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    val skills = listOf(
+        "Kotlin",
+        "Jetpack Compose",
+        "Git",
+        "Android Studio",
+        "Compose UI"
+    )
+
+    val projects = listOf(
+        ProjectUi(
+            title = "Profil développeur",
+            description = "Application Android présentant une fiche de profil développeur.",
+            technology = "Kotlin, Jetpack Compose"
+        ),
+        ProjectUi(
+            title = "Product Explorer",
+            description = "Application Android présentant des produits, leurs caractéristiques et leurs prix.",
+            technology = "Kotlin, Material Design 3"
+        )
+    )
+
+    LazyColumn(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(24.dp)
+            .fillMaxSize()
+            .padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(bottom = 24.dp)
     ) {
-        ProfileHeader(
-            name = name,
-            role = role,
-            modifier = Modifier.fillMaxWidth()
-        )
+        item {
+            ProfileHeader(
+                name = name,
+                role = role,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
 
-        Text(
-            text = description,
-            modifier = Modifier.padding(top = 16.dp)
-        )
+        item {
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
 
-        Text(
-            text = "Compétences",
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(top = 24.dp)
-        )
+        item {
+            Text(
+                text = "Compétences",
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
 
-        val skills = listOf(
-            "Kotlin",
-            "Jetpack Compose",
-            "Git",
-            "Android Studio",
-            "Compose UI"
-        )
-
-        LazyRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(vertical = 8.dp)
-        ) {
-            items(skills) { skill ->
-                SkillCard(skill = skill)
+        item {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(vertical = 8.dp)
+            ) {
+                items(skills) { skill ->
+                    SkillCard(skill = skill)
+                }
             }
         }
 
-        ContactInfo(
-            availability = "Disponible pour un nouveau poste"
-        )
+        item {
+            Text(
+                text = "Mes projets",
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
 
-        ProfileAction(
-            label = "Contacter le développeur",
-            onClick = {
-                // Contact action
-            }
-        )
+        items(projects) { project ->
+            ProjectCard(project = project)
+        }
 
+        item {
+            ContactInfo(
+                availability = "Disponible pour un nouveau poste"
+            )
+        }
+
+        item {
+            ProfileAction(
+                label = "Contacter le développeur",
+                onClick = {
+                    // Action de contact
+                }
+            )
+        }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun ProfilePreview() {
@@ -210,22 +254,40 @@ fun SkillCard(
 }
 
 @Composable
-fun SkillItem(
-    skill: String,
+fun ProjectCard(
+    project: ProjectUi,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium
     ) {
-        Text(
-            text = skill,
-            modifier = Modifier.padding(12.dp)
-        )
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = project.title,
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = project.description,
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Technologies : ${project.technology}",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
     }
 }
+
 @Composable
 fun ContactInfo(
     availability: String,
@@ -262,6 +324,7 @@ fun ProfileAction(
         )
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun SecondProfilePreview() {
