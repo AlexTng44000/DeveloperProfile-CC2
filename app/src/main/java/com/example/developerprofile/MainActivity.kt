@@ -38,6 +38,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Button
 
 data class ProjectUi(
     val title: String,
@@ -146,7 +149,8 @@ fun ProfileScreen(
 
         item {
             ContactInfo(
-                availability = "Disponible pour un nouveau poste"
+                availability = "Disponible pour un nouveau poste",
+                email = "alex.tanguy@example.com"
             )
         }
 
@@ -291,36 +295,81 @@ fun ProjectCard(
 @Composable
 fun ContactInfo(
     availability: String,
+    email: String,
     modifier: Modifier = Modifier
 ) {
-    Text(
-        text = availability,
-        style = MaterialTheme.typography.bodyMedium,
-        modifier = modifier.padding(top = 20.dp)
-    )
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = "Contact",
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Icon(
+                    painter = painterResource(
+                        id = android.R.drawable.ic_dialog_info
+                    ),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(20.dp)
+                )
+
+                Text(
+                    text = availability,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = email,
+                onValueChange = {},
+                readOnly = true,
+                singleLine = true,
+                label = {
+                    Text(text = "Adresse e-mail")
+                },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(
+                            id = android.R.drawable.ic_dialog_email
+                        ),
+                        contentDescription = null
+                    )
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
 }
+
+
 @Composable
 fun ProfileAction(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp)
-            .clickable(
-                role = Role.Button,
-                onClick = onClick
-            )
-            .semantics {
-                contentDescription = label
-            },
-        color = MaterialTheme.colorScheme.primaryContainer
+    Button(
+        onClick = onClick,
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium
     ) {
         Text(
             text = label,
-            modifier = Modifier.padding(16.dp)
+            style = MaterialTheme.typography.labelLarge
         )
     }
 }
