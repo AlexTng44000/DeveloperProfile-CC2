@@ -57,7 +57,7 @@ L'application utilise `MaterialTheme.colorScheme` pour les couleurs, `MaterialTh
 Le fichier `MainActivity.kt` contient deux previews :
 
 - `ProfilePreview` : profil Alex TANGUY en mode clair.
-- `SecondProfilePreview` : profil Camille Durand en mode sombre.
+- `SecondProfilePreview` : profil Alex TANGUY en mode sombre.
 
 ## Lancement
 
