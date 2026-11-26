@@ -165,15 +165,23 @@ fun ProfileScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    name = "Profil - Clair",
+    showBackground = true
+)
 @Composable
 fun ProfilePreview() {
-    DeveloperProfileTheme {
-        ProfileScreen(
-            name = "Alex TANGUY",
-            role = "Développeur Android junior",
-            description = "Étudiant en informatique, passionné par le développement mobile."
-        )
+    DeveloperProfileTheme(darkTheme = false) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            ProfileScreen(
+                name = "Alex TANGUY",
+                role = "Développeur Android junior",
+                description = "Étudiant en informatique, passionné par le développement mobile."
+            )
+        }
     }
 }
 
@@ -374,15 +382,23 @@ fun ProfileAction(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    name = "Profil - Sombre",
+    showBackground = true
+)
 @Composable
 fun SecondProfilePreview() {
-    DeveloperProfileTheme {
-        ProfileScreen(
-            name = "Camille Durand",
-            role = "Développeuse Android confirmée",
-            description = "Développeuse spécialisée dans la création d'applications Android modernes."
-        )
+    DeveloperProfileTheme(darkTheme = true) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            ProfileScreen(
+                name = "Camille Durand",
+                role = "Développeuse Android confirmée",
+                description = "Développeuse spécialisée dans la création d'applications Android modernes."
+            )
+        }
     }
 }
 
