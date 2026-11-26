@@ -22,6 +22,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.material3.Card
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,31 +112,67 @@ fun ProfilePreview() {
         )
     }
 }
+
 @Composable
 fun ProfileHeader(
     name: String,
     role: String,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.surfaceVariant
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(
-                text = name,
-                style = MaterialTheme.typography.headlineMedium
-            )
+            Box(
+                modifier = Modifier.size(80.dp),
+                contentAlignment = Alignment.BottomEnd
+            ) {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.ic_launcher_foreground
+                    ),
+                    contentDescription = "Avatar de $name",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(CircleShape)
+                )
 
-            Text(
-                text = role,
-                style = MaterialTheme.typography.titleMedium
-            )
+                Surface(
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.primary
+                ) {
+                    Text(
+                        text = "✓",
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.padding(4.dp)
+                    )
+                }
+            }
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = role,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
 }
+
 @Composable
 fun SkillItem(
     skill: String,
