@@ -46,13 +46,11 @@ L'application utilise `MaterialTheme.colorScheme` pour les couleurs, `MaterialTh
 
 ### Mode clair
 
-![Profil développeur en mode clair](screenshots/profil-clair.png)
+![Profil développeur en mode clair](screenshots/proffil-clair.png)
 
 ### Mode sombre
 
-![Profil développeur en mode sombre](screenshots/profil-sombre.png)
-
-> Ajouter ces deux fichiers PNG dans le dossier `screenshots/` avant le rendu.
+![Profil développeur en mode sombre](screenshots/proffil-sombre.png)
 
 ## Previews
 
