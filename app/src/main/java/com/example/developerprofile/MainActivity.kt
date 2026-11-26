@@ -34,6 +34,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.Card
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.PaddingValues
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,10 +86,23 @@ fun ProfileScreen(
             modifier = Modifier.padding(top = 24.dp)
         )
 
-        SkillItem(skill = "Kotlin")
-        SkillItem(skill = "Jetpack Compose")
-        SkillItem(skill = "Git")
-        SkillItem(skill = "Android Studio")
+        val skills = listOf(
+            "Kotlin",
+            "Jetpack Compose",
+            "Git",
+            "Android Studio",
+            "Compose UI"
+        )
+
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(vertical = 8.dp)
+        ) {
+            items(skills) { skill ->
+                SkillCard(skill = skill)
+            }
+        }
 
         ContactInfo(
             availability = "Disponible pour un nouveau poste"
@@ -170,6 +186,26 @@ fun ProfileHeader(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun SkillCard(
+    skill: String,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Text(
+            text = skill,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(
+                horizontal = 16.dp,
+                vertical = 12.dp
+            )
+        )
     }
 }
 
